@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Create course {% endblock %}
+
+{% block content %} 
+	<h1>Create new course</h1>
+	<form method="POST" action="/create/">
+		{% csrf_token %}
+		<table class="table">
+			<tbody>
+				<tr>
+					<th scope='row' width='15%'>Name:</th>
+					<td>{{form.name}}</td>
+				</tr>
+				<tr>
+					<th scope='row'>Description:</th>
+					<div class="input-group mb-3">
+						<td>{{form.description}}</td>
+					</div>
+				</tr>
+			</tbody>
+		</table>
+
+		
+		<button type="submit" name="save" class="btn btn-success">Create</button>
+	</form>
+{% endblock %}

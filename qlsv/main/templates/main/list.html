@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Home Page {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %} 
+	<h1>COURSE: {{course.name}}</h1>
+	<form method="POST" action="#">
+		{% csrf_token %}
+		{{form|crispy}}
+		<table class="table">
+			<thread>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Name</th>
+					<th scope="col">Sex</th>
+					<th scope="col">DOB</th>
+					<th scope="col">Address</th>
+					<th scope="col"></th>
+				</tr>
+			</thread>
+			</tbody>
+	
+		{% for std in course.student_set.all %}
+			<div class="input-gourp mb-3">
+				<div class="input-gourp-prepend">
+					<div class="input-gourp-text">
+						<tr>
+							<th scope="row">{{std.id}}</th>
+							<td><input type="text" value="{{std.name}}" class="form-control" name="n{{std.id}}"></td>
+							<td>
+							{% if std.sex == True %}
+								<input type="radio" value="Male" name="r{{std.id}}" checked> Male
+								<input type="radio" value="Female" name="r{{std.id}}" > Female
+							{% else %}
+								<input type="radio" value="Male" name="r{{std.id}}" > Male
+								<input type="radio" value="Female" name="r{{std.id}}" checked> Female
+							{% endif %}
+							</td>
+							<td>{{std.DOB}}</td>
+							<td><input type="text" value="{{std.address}}" class="form-control" name="address{{std.id}}"></td>
+							<td><button type="submit" value="{{std.id}}" name="delete" class="btn btn-danger">Delete</button></td>
+						</tr>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+			<tr>
+				<th scope="row">#</th>
+				<td><input type="text" class="form-control" name="newName"></td>
+				<td>
+					<input type="radio" value="Male" name="newSex" checked> Male
+					<input type="radio" value="Female" name="newSex"> Female
+				</td>
+				<td><input type="date" class="form-control" name="newDOB"></td>
+				<td><input type="text" class="form-control" name="newAddress"></td>
+				<td><button type="submit" name="newStudent" value="newStudent" class="btn btn-success">Add Student</button></td>
+			</tr>
+		</table>
+
+		<button type="submit" name="save" value="save" class="btn btn-success">Save</button>
+	</form>
+{% endblock %}

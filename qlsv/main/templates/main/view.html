@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Home Page {% endblock %}
+
+{% block content %} 
+	<h1>All course</h1>
+	
+	<form method="POST" action="#">
+		{% csrf_token %}
+		<table class="table">
+			<thred>
+				<tr>
+					<th scope="col" width='10%'>ID</th>
+					<th scope="col" width='15%'>Name</th>
+					<th scope="col" width='70%'>Description</th>
+					<th scope="col" width='5%'></th>
+				</tr>
+			</thred>
+			<tbody>
+				{% for c in user.course.all %}
+				<tr>
+					<td>{{c.id}}</td>
+					<td><p><a href='/list_student={{c.id}}' style="text-decoration: none">{{c.name}}</a></p></td>
+					<td>{{c.description}}</td>
+					<td><button type="submit" value="{{c.id}}" name="C_delete" class="btn btn-danger">Delete</button></td>
+				</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</form>
+{% endblock %}
